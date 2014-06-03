@@ -1,0 +1,2 @@
+FallbackResource /index.php
+AddType text/cache-manifest .appcache
