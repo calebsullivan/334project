@@ -1,3 +1,6 @@
 composer.phar
 vendor/
 private/
+.DS_Store
+*DS_Store
+*_Store
