@@ -5,7 +5,8 @@
     if(isset($_GET['what'])!=true) $_GET['what']='';
 
     session_start();
-
+    $user="root"; $pass="";
+    //s$db = new PDO('mysql:host=localhost;dbname=test', $user, $pass);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,6 +55,9 @@
                 <p><a href="#">Clear all domain cookies</a></p>
                 <p><a href="#">Clear all login cookies</a></p>
                 <p><a href="#">Set admin login cookie</a></p>
+
+            <h2 class="content-subhead">Diagnostic</h2>
+                <p><a href="phpinfo">phpinfo</a></p>
         </div>
     </div>
 <?php }?>
@@ -76,6 +80,11 @@
 
             <h2 class="content-subhead">SERVER_SOFTWARE</h2>
             <pre><?php echo $_SERVER['SERVER_SOFTWARE'];?></pre>
+
+            <h2 class="content-subhead">ERROR_LOG</h2>
+            <pre><?php echo ini_get('error_log');?></pre>
+            <span>(only appears if safe_mode off)</span>
+
 
         </div>
     </div>
