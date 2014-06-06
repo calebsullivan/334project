@@ -1,13 +1,15 @@
 <?php
-define("DEBUG", true); 
 
-if(DEBUG) { 
-    error_reporting(E_ALL);
-    ini_set('display_errors', 'on'); }
+$GLOBALS['status']=0;
+$GLOBALS['yeild']='';
 
+enableReporting();
 session_start();
 
- 
-define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', dirname(__FILE__));
+if(!XHR){
+	route();
+}else{
+
+}
+
 ?>
