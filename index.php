@@ -10,10 +10,17 @@ define('XHR', strtolower(getenv('HTTP_X_REQUESTED_WITH')) === 'xmlhttprequest');
 // load application, prep
 require_once( LIBS . DS . 'bootstrap.lib.php');
 require_once( LIBS . DS . 'global.lib.php');
-require_once( LIBS . DS . 'router.lib.php');
 
 // execute
+require_once( LIBS . DS . 'router.lib.php');
+
+require_once( ROOT . DS . 'db' . DS . 'config.db.php');
+require_once( ROOT . DS . 'db' . DS . 'database.db.php');
+
+require_once( ROOT . DS . 'app' . DS . 'load.app.php');
+
 require_once( LIBS . DS . 'init.lib.php');
+
 
 // ----------- BEGIN VIEW ----------- //
 require_once( VIEWS . DS . 'framework' . DS . 'start.html.php');
