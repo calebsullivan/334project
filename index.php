@@ -1,5 +1,4 @@
 <?php 
-
 define('DEV', true); 
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -22,16 +21,15 @@ require_once( VIEWS . DS . 'framework' . DS . 'menu.html.php');
 ?>
 
 <div id="main">
-
 <?php require_once( VIEWS . DS . 'framework' . DS . 'header.html.php'); ?>
 			
 			<div id="content">
 				<?php render($GLOBALS['yeild']);?>
 			</div>
 			
-	<?php require_once( VIEWS . DS . 'framework' . DS . 'footer.html.php'); ?>
-
+<?php require_once( VIEWS . DS . 'framework' . DS . 'footer.html.php'); ?>
 </div>
+
 <?php
 require_once( VIEWS . DS . 'framework' . DS . 'end.html.php');
 // ----------- END VIEW ----------- //

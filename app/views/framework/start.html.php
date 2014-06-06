@@ -6,14 +6,8 @@
 	<title><?php #render($title);?></title>
 	<link rel="stylesheet" type="text/css" href="/assets/css/html5reset.css"/>
 	<link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/base.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/base-context.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/buttons.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/forms.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/grids.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/menus.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/pure.css"/>
-	<link rel="stylesheet" type="text/css" href="/assets/css/pure/tables.css"/>
+	<link rel="stylesheet" type="text/css" href="/assets/css/pure/pure-min.css"/>
+	<link rel="stylesheet" type="text/css" href="/dev/side-menu.css"/>
 	<link rel="stylesheet" type="text/css" href="/assets/css/site.css"/>
 </head>
 <body>
