@@ -1,17 +1,18 @@
 <div id="menu">
     <div class="pure-menu  pure-menu-open">
         <a class="pure-menu-heading" href="/">offr</a>
-        <ul>
-<?php
+        <ul><?php
     foreach ($GLOBALS['views'] as $view){
-?>
-            <li class=" ">
-                <a href="/<?php echo strtolower($view)?>/"><?php echo $view?></a>
-            </li>
+
+        if($view == $GLOBALS['title']){
+?>        <li class="pure-menu-selected">
+<?php } else { ?> 
+        <li> 
+<?php } ?>
+            <a href="/<?php echo strtolower($view)?>/"><?php echo $view?></a>
+        </li>
 <?php
     }
-?>
-
-        </ul>
+?>        </ul>
     </div>
 </div>

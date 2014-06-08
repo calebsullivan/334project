@@ -1,6 +1,7 @@
 <?php
 
 function route(){
+    //$_SERVER['REQUEST_METHOD']
     $path = ltrim($_SERVER['REQUEST_URI'], '/'); //tokenize url params
     $path = explode('/', $path);
 
@@ -16,6 +17,7 @@ function route(){
         case 'tmp':
             error403();
             break;
+            
         case 'dashboard':
             $GLOBALS['title']="Dashboard";
             $GLOBALS['yield']=VIEWS . DS . 'dashboard.view.php';
@@ -28,7 +30,14 @@ function route(){
             $GLOBALS['title']="Search";
             $GLOBALS['yield']=VIEWS . DS . 'search.view.php';
             break;
-
+        case 'sell':
+            $GLOBALS['title']="Sell";
+            $GLOBALS['yield']=VIEWS . DS . 'sell.view.php';
+            break;
+        case 'messages':
+            $GLOBALS['title']="Messages";
+            $GLOBALS['yield']=VIEWS . DS . 'messages.view.php';
+            break;
 
         default:
             error404();

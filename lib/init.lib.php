@@ -6,8 +6,8 @@ $GLOBALS['yeild']='';
 enableReporting();
 session_start();
 
-$DATABASE = new Database();
-$USER = new User();
+$GLOBAL['DB']= new Database();
+$GLOBAL['USER'] = new User();
 
 session_name("offr");
 

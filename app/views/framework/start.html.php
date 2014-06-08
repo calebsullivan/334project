@@ -7,7 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/html5reset.css"/>
 	<link rel="stylesheet" type="text/css" href="/assets/css/font-awesome.css"/>
 	<link rel="stylesheet" type="text/css" href="/assets/css/pure/pure-min.css"/>
-	<link rel="stylesheet" type="text/css" href="/dev/side-menu.css"/>
+	<link rel="stylesheet" type="text/css" href="/assets/css/side-menu.css"/>
 	<link rel="stylesheet" type="text/css" href="/assets/css/site.css"/>
 </head>
 <body>
