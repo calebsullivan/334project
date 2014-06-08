@@ -9,9 +9,7 @@ session_start();
 $DATABASE = new Database();
 $USER = new User();
 
-
-session_name("nanoblog");
-
+session_name("offr");
 
 if(!XHR){
 	route();

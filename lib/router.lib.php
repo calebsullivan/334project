@@ -16,10 +16,18 @@ function route(){
         case 'tmp':
             error403();
             break;
-        
         case 'dashboard':
-
-        	break;
+            $GLOBALS['title']="Dashboard";
+            $GLOBALS['yield']=VIEWS . DS . 'dashboard.view.php';
+            break;
+        case 'home':
+            $GLOBALS['title']="Home";
+            $GLOBALS['yield']=VIEWS . DS . 'home.view.php';
+            break;
+        case 'search':
+            $GLOBALS['title']="Search";
+            $GLOBALS['yield']=VIEWS . DS . 'search.view.php';
+            break;
 
 
         default:
