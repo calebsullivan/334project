@@ -34,7 +34,7 @@ require_once( VIEWS . DS . 'framework' . DS . 'menu.html.php');
 <div id="main">
 <?php require_once( VIEWS . DS . 'framework' . DS . 'header.html.php'); ?>
 			
-<div id="content">
+<div class="content">
 <?php require_once($GLOBALS['yield']);?>
 </div>
 			

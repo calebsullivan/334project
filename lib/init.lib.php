@@ -5,16 +5,20 @@ $GLOBALS['yeild']='';
 
 enableReporting();
 session_start();
-
-$GLOBAL['DB']= new Database();
-$GLOBAL['USER'] = new User();
-
 session_name("offr");
 
-if(!XHR){
-	route();
-}else{
+$user = new User();
+$GLOBALS['user']=$user;
 
-}
+
+if(!$GLOBALS['user']->isAuth()) 
+	$GLOBALS['views'] = $GLOBALS['unauth_views'];
+
+route($user);
+
+// if(XHR){
+// }else{
+// 	route($user);
+// }
 
 ?>

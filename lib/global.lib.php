@@ -24,6 +24,14 @@ function error500(){
 	$GLOBALS['status']=500;
 }
 
+function redirect($location){
+
+	header("Location: http://" . $_SERVER['HTTP_HOST'].$location, true, 302);
+	header("Location: http://" . $_SERVER['HTTP_HOST']);
+	
+	exit;
+}
+
 //render content, insert variables
 // TODO expand
 function render($content){
@@ -46,12 +54,34 @@ function render($content){
 
 }
 // TODO
-function sanitizeSafe(){
-
+function sanitize($c){
+	return $c;
 }
 
-function sanitizeUnsafe(){
-	
+function sanitizeUnsafe($c){
+	return $c;
 }
+
+function path($view){
+	switch($view){
+		case 'Dashboard':
+		return 'dashboard';
+		case 'Messages':
+		return 'messages';
+		case 'Create offer':
+		return 'offer';
+		case 'Search':
+		return 'search';
+		case 'Sign up':
+		return 'signup';
+		case 'Log in':
+		return 'login';
+		default:
+		return '/';
+	}
+}
+
+function post(){ return $_SERVER['REQUEST_METHOD'] == 'POST'; }
+function get(){ return $_SERVER['REQUEST_METHOD'] == 'GET'; }
 
 ?>

@@ -9,7 +9,7 @@
 <?php } else { ?> 
         <li> 
 <?php } ?>
-            <a href="/<?php echo strtolower($view)?>/"><?php echo $view?></a>
+            <a href="/<?php echo path($view);?>/"><?php echo $view?></a>
         </li>
 <?php
     }

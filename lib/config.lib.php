@@ -1,6 +1,6 @@
 <?php
 
-	$GLOBALS['views'] = array('Home', 'Dashboard', 'Messages', 'Sell', 'Search');
-	$GLOBALS['unauth_views'] = array('Home', 'Sell', 'Search');
+	$GLOBALS['views'] = array('Dashboard', 'Messages', 'Create offer', 'Search');
+	$GLOBALS['unauth_views'] = array('Sign up', "Log in");
 
 ?>

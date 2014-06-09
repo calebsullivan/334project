@@ -1,43 +1,95 @@
 <?php
 
 class User{
-
-	// creates user and writes to database
+	private $db;
 
 	function __construct(){
-		$this->$db=$GLOBAL['DB'];
+		$this->db=Database::getInstance();
+		if($GLOBALS['rebuild']) { $this->seed(); }
 	}
 
-	function createUser($USERNAME, $EMAIL, $PASSWORD, $NAME){
+	public function db(){
+		return $this->db;
+	}
+
+	// makes fake data
+	function seed(){
+		$this->createUser('test', 'test@example.com', 'password', 'Test User');
+		$this->createUser('test2', 'test2@example.com', 'password', 'Test Two');
+	}
+
+	function createUser($user, $email, $plaintext_password, $name){
 		//TABLE user (time REAL, UID TEXT, user TEXT, email TEXT, pass TEXT, name TEXT, image TEXT, data TEXT, token TEXT, loc TEXT)
-		try {
-			$this->$db->beginTransaction();
-			$this->$db->exec("INSERT INTO 'users' VALUES('0.0', '0', 'test@example.com', 'LeTest', 'testtest');");
-			$this->$db->commit();
+		$time=time();
+		$UID=$this->generateUID();
+		$pass=$this->saltPassword($plaintext_password);
+
+		try{
+			$this->db->db->beginTransaction();
+			$this->db->db->exec("INSERT INTO 'users' (time, UID, user, email, pass, name) VALUES('$time', '$UID', '$user', '$email', '$pass', '$name');");
+			$this->db->db->commit();
 		} catch (Exception $e) {
-			$this->$db->rollback();
+			echo $e;
+			$this->db->db->rollback();
 		}
-
 	}
 
-	function updateUser($USERNAME, $EMAIL, $PASSWORD, $NAME){
+	function updateUser($user, $email, $plaintext_password, $name){
 
 	}
-
 
 	// isAuth: authenticated status of the current user
 	// returns false if anonymous user
 	function isAuth(){
+		return array_key_exists('auth', $_SESSION) 
+			|| array_key_exists('auth', $_COOKIE);
+	}
 
+	function userInUse(){
 		return false;
 	}
 
-	function logIn($username, $plaintext_password){
+	function emailInUse(){
+		return false;
+	}
+
+	function generateUID(){
+		return rand(pow(10, 3), pow(10, 4)-1); //random 4 digit number
+	}
+
+	function UIDexists($uid){
+		return false;
+	}
+
+	function saltPassword($plaintext_password){
 		$salt="3KJHRD9FH3KJHF93";
-		$sha1=sha1($salt.$plaintext_password);
+		return sha1($plaintext_password.$salt.$plaintext_password);
+	}
 
-		return true;
+	public function login(){
+		$username=sanitize($_POST['username']);
+		if(isset($_POST['email'])) $email=sanitize($_POST['email']); else $email='';
+		$password=$this->saltPassword($_POST['password']);
+		$query = "SELECT UID, email, name FROM users WHERE (email = '$email' or user = '$username') AND pass = '$password' LIMIT 1;";
+		$result = $this->db->db->query($query)->fetch(PDO::FETCH_ASSOC);
+		$_SESSION['auth']=$result['UID'];
+		$_SESSION['email']=$result['email'];
+		$_SESSION['name']=$result['name'];
+		redirect('/dashboard/');
+	}
 
+	public function signup(){
+		$this->createUser(sanitize($_POST['username'])
+			, sanitize($_POST['email'])
+			, $_POST['password']
+			, '');
+		$this->login();
+	}
+
+	public function logout(){
+		session_unset();
+		session_decode();
+		redirect('/');
 	}
 
 }
