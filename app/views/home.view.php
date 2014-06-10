@@ -4,5 +4,10 @@
 
 </div>
 
-<script type="text/javascript">
-</script>
+<?php
+/*
+$GLOBALS['js']=<<<EOT
+
+EOT;
+*/
+?>

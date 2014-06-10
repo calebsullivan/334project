@@ -70,6 +70,15 @@ function route($user){
             $GLOBALS['yield']=VIEWS . DS . 'user' . DS . 'show.php';
             break;
 
+        case 'message':
+            if(!$GLOBALS['user']->isAuth()) errorXHR('Please login again!');
+            switch(array_shift($path)){
+                case 'send':
+                    $GLOBALS['message']->send();
+                break;
+            }
+            break;
+
         case 'logout':
             if(!$GLOBALS['user']->isAuth()) redirect();
             if(post()) $user->logout();

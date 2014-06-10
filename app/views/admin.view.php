@@ -58,7 +58,7 @@
 
 <?php if ($_GET['what'] == '') {?>
     <div id="main">
-        <div class="header"><h1>Developer</h1></div>
+        <div class="header"><h1>Admin</h1></div>
 
         <div class="content">
             <h2 class="content-subhead">Set/get</h2>
@@ -74,7 +74,6 @@
 <?php if ($_GET['what'] == 'info') {?>
     <div id="main">
         <div class="header"><h1>Info</h1></div>
-
         <div class="content">
             <h2 class="content-subhead">REQUEST_URI</h2>
             <pre><?php echo $_SERVER['REQUEST_URI'];?></pre>
@@ -94,8 +93,6 @@
             <h2 class="content-subhead">ERROR_LOG</h2>
             <pre><?php echo ini_get('error_log');?></pre>
             <span>(only appears if safe_mode off)</span>
-
-
         </div>
     </div>
 <?php }?>

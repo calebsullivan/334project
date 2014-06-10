@@ -7,9 +7,9 @@
 	<?php 
 	if(isset($GLOBALS['js'])) { 
 		render( 
-		'<script type="text/javascript">' 
+		'<script type="text/javascript">$( document ).ready(function() {' 
 		. $GLOBALS['js'] 
-		. '</script>'
+		. '});</script>'
 		);
 	}
 	?>

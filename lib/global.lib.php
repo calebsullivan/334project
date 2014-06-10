@@ -36,6 +36,16 @@ function redirect($location='', $feedback=null){
 	exit;
 }
 
+function errorXHR($content){
+	echo json_encode(array('error' => $content));
+	exit;
+}
+
+function sendXHR($content){
+	echo json_encode(array('data' => $content));
+	exit;
+}
+
 //render content, insert variables
 // TODO expand
 function render($content){

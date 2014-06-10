@@ -10,6 +10,9 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_name("offr");
 }
 
+$message = new Message();
+$GLOBALS['message']=$message;
+
 $user = new User();
 $GLOBALS['user']=$user;
 

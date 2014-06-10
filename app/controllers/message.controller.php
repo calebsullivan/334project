@@ -14,19 +14,37 @@ class Message{
 
 	// makes fake data
 	function seed(){
-		$this->createUser('test', 'test@example.com', 'password', 'Test User');
-		$this->createUser('test2', 'test2@example.com', 'password', 'Test Two');
 	}
 
-	function sendMessage($fromUID, $toUID, $IID, $data){
-	//"CREATE TABLE messages (time REAL, IID TEXT, toUID TEXT, fromUID TEXT, read TEXT, data TEXT, token TEXT, loc TEXT);"
+	function sendMessage($fromUID, $IID, $message){
+	//TABLE user (time REAL, UID TEXT, user TEXT, email TEXT, pass TEXT, name TEXT, image TEXT, data TEXT, token TEXT, loc TEXT)
+	//CREATE TABLE messages (time REAL, IID TEXT, toUID TEXT, fromUID TEXT, read TEXT, data TEXT, token TEXT, loc TEXT)
+		$result = $this->db->db->query("SELECT UID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
+		$toUID=$result['UID'];
+		$time = time();			
+
+		$this->db->beginTransaction();
+		$this->db->exec("INSERT INTO 'messages' (time, IID, toUID, fromUID, read, data) VALUES('$time', '$IID', '$toUID', '$fromUID', '0', '$message');");
+		$this->db->commit();
+
+		sendXHR('Message sent');
 
 	}
 
-	function getMessages($UID){
-
+	function getAllMessages($UID){
+		$result = $this->db->db->query("SELECT UID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
 	}
 
+	function send(){
+		//validate presence of required data
+		if(!isset($_POST['iid'])
+			|| !isset($_POST['message'])) errorXHR('Missing data');
+
+		//send message
+		$this->sendMessage( $_SESSION['auth']
+			, sanitize($_POST['iid'])
+			, sanitize($_POST['message']));
+	}
 }
 
 ?>
