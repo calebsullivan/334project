@@ -25,12 +25,12 @@ function route($user){
             break;
 
         case 'dashboard':
-            if(!$GLOBALS['user']->isAuth()) redirect('/');
+            if(!$GLOBALS['user']->isAuth()) redirect();
             $GLOBALS['title']="Dashboard";
             $GLOBALS['yield']=VIEWS . DS . 'dashboard.view.php';
             break;
         case 'home':
-            if(!$GLOBALS['user']->isAuth()) redirect('/');
+            if(!$GLOBALS['user']->isAuth()) redirect();
             $GLOBALS['title']="Home";
             $GLOBALS['yield']=VIEWS . DS . 'home.view.php';
             break;
@@ -43,34 +43,33 @@ function route($user){
             $GLOBALS['yield']=VIEWS . DS . 'offer.view.php';
             break;
         case 'messages':
-            if(!$GLOBALS['user']->isAuth()) redirect('/');
+            if(!$GLOBALS['user']->isAuth()) redirect();
             $GLOBALS['title']="Messages";
             $GLOBALS['yield']=VIEWS . DS . 'messages.view.php';
             break;
 
         case 'login':
             if(post()) $user->login();
-            if($GLOBALS['user']->isAuth()) redirect('/');
+            if($GLOBALS['user']->isAuth()) redirect();
             $GLOBALS['title']="Log in";
             $GLOBALS['yield']=VIEWS . DS . 'user' . DS . 'login.php';
             break;
         case 'signup':
             if(post()) $user->signup();
-            if($GLOBALS['user']->isAuth()) redirect('/');
+            if($GLOBALS['user']->isAuth()) redirect();
             $GLOBALS['title']="Sign up";
             $GLOBALS['yield']=VIEWS . DS . 'user' . DS . 'signup.php';
             break;
 
         case 'user':
-            if(!$GLOBALS['user']->isAuth()) redirect('/');
+            if(!$GLOBALS['user']->isAuth()) redirect();
             $GLOBALS['title']=$GLOBALS['user']->name();
             $GLOBALS['yield']=VIEWS . DS . 'user' . DS . 'show.php';
             break;
 
         case 'logout':
-            if(get()) $user->logout();
+            if(!$GLOBALS['user']->isAuth()) redirect();
             if(post()) $user->logout();
-            if($GLOBALS['user']->isAuth()) redirect('/');
             break;
 
         default:

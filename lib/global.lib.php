@@ -24,9 +24,13 @@ function error500(){
 	$GLOBALS['status']=500;
 }
 
-function redirect($location){
+function redirect($location='', $feedback=null){
+	if($location == '')
+		$location = '/';
+	else
+		$location = '/' . $location . '/';
 
-	header("Location: http://" . $_SERVER['HTTP_HOST'].$location, true, 302);
+	header("Location: http://" . $_SERVER['HTTP_HOST'] . $location, true, 302);
 	header("Location: http://" . $_SERVER['HTTP_HOST']);
 	
 	exit;

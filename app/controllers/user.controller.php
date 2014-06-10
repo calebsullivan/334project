@@ -54,6 +54,7 @@ class User{
 	}
 
 	function generateUID(){
+		// should check that UID doesn't already exist, just in case
 		return rand(pow(10, 3), pow(10, 4)-1); //random 4 digit number
 	}
 
@@ -62,6 +63,7 @@ class User{
 	}
 
 	function saltPassword($plaintext_password){
+		// should be sha2
 		$salt="3KJHRD9FH3KJHF93";
 		return sha1($plaintext_password.$salt.$plaintext_password);
 	}
@@ -75,10 +77,19 @@ class User{
 		$_SESSION['auth']=$result['UID'];
 		$_SESSION['email']=$result['email'];
 		$_SESSION['name']=$result['name'];
-		redirect('/dashboard/');
+		redirect('dashboard');
 	}
 
 	public function signup(){
+		
+		//validate presence of required data
+		if(!isset($_POST['username']) 
+			|| !isset($_POST['email']) 
+			|| !isset($_POST['password']) 
+			) redirect('signup', 'Fill required fields');
+
+		//create user, password does not need to be validated
+			//because password is salted
 		$this->createUser(sanitize($_POST['username'])
 			, sanitize($_POST['email'])
 			, $_POST['password']
@@ -89,7 +100,7 @@ class User{
 	public function logout(){
 		session_unset();
 		session_decode();
-		redirect('/');
+		redirect();
 	}
 
 }
