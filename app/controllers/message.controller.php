@@ -16,11 +16,14 @@ class Message{
 	function seed(){
 	}
 
+	function getUIDfromIID($IID){
+		$result = $this->db->db->query("SELECT UID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
+		return $result['UID'];
+	}
 	function sendMessage($fromUID, $IID, $message){
 	//TABLE user (time REAL, UID TEXT, user TEXT, email TEXT, pass TEXT, name TEXT, image TEXT, data TEXT, token TEXT, loc TEXT)
 	//CREATE TABLE messages (time REAL, IID TEXT, toUID TEXT, fromUID TEXT, read TEXT, data TEXT, token TEXT, loc TEXT)
-		$result = $this->db->db->query("SELECT UID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
-		$toUID=$result['UID'];
+		$toUID=getUIDfromIID($IID);
 		$time = time();			
 
 		$this->db->beginTransaction();
@@ -31,8 +34,12 @@ class Message{
 
 	}
 
-	function getAllMessages($UID){
-		$result = $this->db->db->query("SELECT UID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
+	function getAllMessages(){
+		$result = $this->db->db->query("SELECT UID FROM messages WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
+	}
+
+	function reply(){
+		sendMessage($_SESSION['auth'], $GLOBALS['path'], sanitize($_POST['message']));
 	}
 
 	function send(){

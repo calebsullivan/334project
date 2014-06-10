@@ -16,6 +16,8 @@ $GLOBALS['message']=$message;
 $user = new User();
 $GLOBALS['user']=$user;
 
+$item = new Item();
+$GLOBALS['item']=$item;
 
 if(!$GLOBALS['user']->isAuth()) 
 	$GLOBALS['views'] = $GLOBALS['unauth_views'];

@@ -24,14 +24,13 @@ function error500(){
 	$GLOBALS['status']=500;
 }
 
-function redirect($location='', $feedback=null){
-	if($location == '')
+function redirect($location=null, $feedback=null){
+	if($location == null)
 		$location = '/';
 	else
 		$location = '/' . $location . '/';
 
 	header("Location: http://" . $_SERVER['HTTP_HOST'] . $location, true, 302);
-	header("Location: http://" . $_SERVER['HTTP_HOST']);
 	
 	exit;
 }
@@ -84,6 +83,8 @@ function path($view){
 		return 'messages';
 		case 'Create offer':
 		return 'offer';
+		case 'My offers':
+		return 'myoffers';
 		case 'Search':
 		return 'search';
 		case 'Sign up':

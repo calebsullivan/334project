@@ -40,7 +40,7 @@ function route($user){
             break;
         case 'offer':
             $GLOBALS['title']="Create offer";
-            $GLOBALS['yield']=VIEWS . DS . 'offer.view.php';
+            $GLOBALS['yield']=VIEWS . DS . 'item' . DS . 'create.php';
             break;
         case 'messages':
             if(!$GLOBALS['user']->isAuth()) redirect();
@@ -70,18 +70,26 @@ function route($user){
             $GLOBALS['yield']=VIEWS . DS . 'user' . DS . 'show.php';
             break;
 
+        case 'item':
+            if(post()) $GLOBALS['item']->create();
+            $GLOBALS['item']->show(array_shift($path));
+            break;
+        case 'myoffers':
+            $GLOBALS['title']="My offers";
+            $GLOBALS['item']->showAll($_SESSION['auth']);
+            break;
+
+
         case 'message':
             if(!$GLOBALS['user']->isAuth()) errorXHR('Please login again!');
-            switch(array_shift($path)){
-                case 'send':
-                    $GLOBALS['message']->send();
-                break;
-            }
+            if(post()) $GLOBALS['message']->send();
+            else if(get() && XHR) $GLOBALS['message']->getAllMessages();
             break;
 
         case 'logout':
             if(!$GLOBALS['user']->isAuth()) redirect();
             if(post()) $user->logout();
+            if(get()) $user->logout(); //should be removed?
             break;
 
         default:

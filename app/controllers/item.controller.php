@@ -16,40 +16,52 @@ class Item{
 	function seed(){
 	}
 
-	function createItem($fromUID, $IID, $message){
-		$IID=generateIID();
-
-	//TABLE user (time REAL, UID TEXT, user TEXT, email TEXT, pass TEXT, name TEXT, image TEXT, data TEXT, token TEXT, loc TEXT)
-	//CREATE TABLE messages (time REAL, IID TEXT, toUID TEXT, fromUID TEXT, read TEXT, data TEXT, token TEXT, loc TEXT)
-		$result = $this->db->db->query("SELECT UID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
-		$toUID=$result['UID'];
-		$time = time();			
-
-		$this->db->beginTransaction();
-		$this->db->exec("INSERT INTO 'messages' (time, IID, toUID, fromUID, read, data) VALUES('$time', '$IID', '$toUID', '$fromUID', '0', '$message');");
-		$this->db->commit();
-
-		sendXHR('Message sent');
-
-	}
-
 	function generateIID(){
 		return rand(pow(10, 7), pow(10, 8)-1); //random 8 digit number
 	}
 
-	function searchItems($term){
-		$result = $this->db->db->query("SELECT IID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
+	function show($IID){
+		$IID=sanitize($IID);
+		$GLOBALS['item']=$this->db->db->query("SELECT IID, images, title, data, token FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
+        $GLOBALS['title']=$GLOBALS['item']['title'];
+	    $GLOBALS['yield']=VIEWS . DS . 'item' . DS . 'show.php';
+
 	}
 
-	function send(){
+	function createItem($title, $images, $data, $token){
+		$IID=$this->generateIID();
+		$UID=$_SESSION['auth'];
+		$time = time();			
+
+		$this->db->db->beginTransaction();
+		$this->db->db->exec("INSERT INTO 'items' (time, IID, UID, data, title, images, token) VALUES('$time', '$IID', '$UID', '$data', '$title', '$images', '$token');");
+		$this->db->db->commit();
+
+		sendXHR('Offer created');
+
+	}
+
+	function create(){
 		//validate presence of required data
-		if(!isset($_POST['iid'])
-			|| !isset($_POST['message'])) errorXHR('Missing data');
+		if(!isset($_POST['data'])
+			|| !isset($_POST['title'])) errorXHR('Missing data');
 
 		//send message
-		$this->sendMessage( $_SESSION['auth']
-			, sanitize($_POST['iid'])
-			, sanitize($_POST['message']));
+		$this->createItem(
+			sanitize($_POST['title'])
+			, ''
+			, sanitize($_POST['data'])
+			, '');
+	}
+
+	function showAll($UID){
+		$GLOBALS['item']=$this->db->db->query("SELECT IID, images, title, data, token FROM items WHERE UID = '$UID';")->fetch(PDO::FETCH_ASSOC);
+	    $GLOBALS['yield']=VIEWS . DS . 'item' . DS . 'show.all.php';		
+	}
+
+	function getUIDfromIID($IID){
+		$result = $this->db->db->query("SELECT UID FROM items WHERE IID = '$IID' LIMIT 1;")->fetch(PDO::FETCH_ASSOC);
+		return $result['UID'];
 	}
 }
 
