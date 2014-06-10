@@ -4,7 +4,11 @@
 
     if(isset($_GET['what'])!=true) $_GET['what']='';
 
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+        session_name("offr");
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

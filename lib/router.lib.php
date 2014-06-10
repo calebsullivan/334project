@@ -60,7 +60,10 @@ function route($user){
             $GLOBALS['title']="Sign up";
             $GLOBALS['yield']=VIEWS . DS . 'user' . DS . 'signup.php';
             break;
-
+        case 'admin':
+            if($GLOBALS['user']->isAuth()) redirect();
+            $GLOBALS['file']=VIEWS . DS . 'admin.view.php';
+            break;
         case 'user':
             if(!$GLOBALS['user']->isAuth()) redirect();
             $GLOBALS['title']=$GLOBALS['user']->name();

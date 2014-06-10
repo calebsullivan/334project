@@ -4,8 +4,11 @@ $GLOBALS['status']=0;
 $GLOBALS['yeild']='';
 
 enableReporting();
-session_start();
-session_name("offr");
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+	session_name("offr");
+}
 
 $user = new User();
 $GLOBALS['user']=$user;
