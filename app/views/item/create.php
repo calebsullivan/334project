@@ -11,6 +11,7 @@
 
         <div class="pure-control-group">
             <label for="data">Description</label>
+            <!-- <div class="editable" contenteditable="true" data-placeholder="Type your text" data-medium-element="true" style="width:100px; height:300px"></div> -->
             <textarea id="data" type="text" name="data" cols=30 rows=30 placeholder="Add more information"></textarea>
         </div>
 
