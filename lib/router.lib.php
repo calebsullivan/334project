@@ -74,6 +74,11 @@ function route($user){
             if(post()) $GLOBALS['item']->create();
             $GLOBALS['item']->show(array_shift($path));
             break;
+        case 'delete_item':
+            if(post() && isset($_POST['IID'])) $GLOBALS['item']->delete(sanitize($POST['IID']));
+            errorXHR('bad');
+            break;
+
         case 'myoffers':
             $GLOBALS['title']="My offers";
             $GLOBALS['item']->showAll($_SESSION['auth']);

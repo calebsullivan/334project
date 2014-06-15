@@ -1,6 +1,6 @@
 <h2 class="content-subhead">Create an account!</h2>
 
-<form class="pure-form pure-form-aligned" action="/signup/" method="post">
+<form class="pure-form pure-form-aligned" id="signup-form" action="/signup/" method="post">
     <fieldset>
         <div class="pure-control-group">
             <label for="username">Username</label>

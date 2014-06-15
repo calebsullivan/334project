@@ -46,6 +46,7 @@ class User{
 	}
 
 	function userInUse(){
+
 		return false;
 	}
 
@@ -75,7 +76,9 @@ class User{
 		$query = "SELECT UID, email, name FROM users WHERE (email = '$email' or user = '$username') AND pass = '$password' LIMIT 1;";
 		$result = $this->db->db->query($query)->fetch(PDO::FETCH_ASSOC);
 		$count=$this->db->db->query($query)->rowCount();
-		if(!$count) errorXHR('no records!');
+
+		if($count <0) errorXHR($count . print_r($result));
+
 		$_SESSION['auth']=$result['UID'];
 		$_SESSION['email']=$result['email'];
 		$_SESSION['name']=$result['name'];
@@ -87,21 +90,23 @@ class User{
 		//validate presence of required data
 		if(!isset($_POST['username']) 
 			|| !isset($_POST['email']) 
-			|| !isset($_POST['password']) 
-			) redirect('signup', 'Fill required fields');
+			|| !isset($_POST['password'])
+			|| !isset($_POST['name']) 
+			) errorXHR('Fill required fields');
 
 		//create user, password does not need to be validated
 			//because password is salted
 		$this->createUser(sanitize($_POST['username'])
 			, sanitize($_POST['email'])
 			, $_POST['password']
-			, '');
+			, sanitize($_POST['name']));
 		$this->login();
 	}
 
 	public function logout(){
 		session_unset();
-		sendXHR('logged out');
+		// sendXHR('logged out');
+		redirect();
 	}
 
 }

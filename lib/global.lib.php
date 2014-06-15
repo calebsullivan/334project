@@ -70,11 +70,11 @@ function render($content){
 }
 // TODO
 function sanitize($c){
-	return $c;
+	return strip_tags($c, '<script><a>');
 }
 
-function sanitizeUnsafe($c){
-	return $c;
+function sanitizeSafe($c){
+	return htmlspecialchars($c, ENT_QUOTES, 'UTF-8');;
 }
 
 function path($view){
@@ -101,6 +101,7 @@ function path($view){
 }
 
 function post(){ return $_SERVER['REQUEST_METHOD'] == 'POST'; }
+function delete(){ return $_SERVER['REQUEST_METHOD'] == 'DELETE'; }
 function get(){ return $_SERVER['REQUEST_METHOD'] == 'GET'; }
 
 function activity(){

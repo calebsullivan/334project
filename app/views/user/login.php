@@ -1,6 +1,6 @@
 <h2 class="content-subhead">Log into your account!</h2>
 
-<form class="pure-form pure-form-aligned" action="/login/" method="post">
+<form class="pure-form pure-form-aligned" id='login_form' action="/login/" method="post">
     <fieldset>
         <div class="pure-control-group">
             <label for="name">Username or email</label>
