@@ -96,6 +96,22 @@ $(document).ready(function() {
 			|| !email_good()){} else {console.log('error');}
 	});
 
+	$('.deleteItem').on('click', function(e){
+		e.preventDefault();
+		console.log($.ajax({
+			type:"POST",
+			url:'/delete-item/',
+			data:{'iid': $(this).data('IID')}
+		}).success(function(data){
+			if(data['error'])
+				alert('It\'s a rocky road to ajax:success. Check your network connection.');
+			else
+				$(this).parents('.item-list').get(0).slideUp();
+		}).fail(function(data){
+			alert('It\'s a rocky road to ajax:success. Check your network connection.');
+		}));
+	});
+
 	function search(){
 		$.ajax({
 			type:"GET",

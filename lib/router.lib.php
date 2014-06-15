@@ -74,9 +74,10 @@ function route($user){
             if(post()) $GLOBALS['item']->create();
             $GLOBALS['item']->show(array_shift($path));
             break;
-        case 'delete_item':
-            if(post() && isset($_POST['IID'])) $GLOBALS['item']->delete(sanitize($POST['IID']));
-            errorXHR('bad');
+        case 'delete-item':
+            if(!XHR) redirect();
+            if(post() && isset($_POST['iid']) && is_array($_POST['iid'])) $GLOBALS['item']->delete(sanitize($_POST['iid']));
+            else errorXHR('bad');
             break;
 
         case 'myoffers':

@@ -69,6 +69,7 @@ class Item{
 		$this->db->db->beginTransaction();
 		$this->db->db->exec("DELETE FROM items WHERE IID = '$IID' AND UID = '" . $_SESSION['auth'] . "';");
 		$this->db->db->commit();
+		sendXHR('y');
 	}
 
 	function search(){

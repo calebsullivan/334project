@@ -1,5 +1,9 @@
 <?php
-
-require_once(VIEWS . DS . 'search.view.php');
-
+foreach ($GLOBALS['item'] as $item){
+	echo '<div style="display:inline" class="item-list">';
+	echo $item['title'];
+	echo $item['description'];
+	echo '<a href="#" class="deleteItem pure-button button-danger" data-IID="' . $item['IID'] . '">Delete</a>';
+	echo '</div>';
+}
 ?>
