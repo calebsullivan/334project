@@ -52,11 +52,9 @@
 
         <div class="content">
             <h2 class="content-subhead">Set/get</h2>
-                <p><a href="#">Clear all domain cookies</a></p>
-                <p><a href="#">Clear all login cookies</a></p>
-                <p><a href="#">Set admin login cookie</a></p>
+                <p><a href="#" onclick="clearDomainCookies(event);">Clear all domain cookies</a></p>
 
-            <h2 class="content-subhead">Diagnostic</h2>
+            <h2 class="content-subhead">Info</h2>
                 <p><a href="phpinfo.dev">phpinfo</a></p>
         </div>
     </div>

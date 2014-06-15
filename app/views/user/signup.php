@@ -8,6 +8,11 @@
         </div>
 
         <div class="pure-control-group">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" placeholder="First Last">
+        </div>
+
+        <div class="pure-control-group">
             <label for="password">Password</label>
             <input id="password" name="password" type="password" placeholder="Password">
         </div>

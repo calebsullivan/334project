@@ -42,7 +42,7 @@ class User{
 	// returns false if anonymous user
 	function isAuth(){
 		return array_key_exists('auth', $_SESSION) 
-			|| array_key_exists('auth', $_COOKIE);
+			|| array_key_exists('auth', $_COOKIE);//unimplemented
 	}
 
 	function userInUse(){
@@ -74,10 +74,12 @@ class User{
 		$password=$this->saltPassword($_POST['password']);
 		$query = "SELECT UID, email, name FROM users WHERE (email = '$email' or user = '$username') AND pass = '$password' LIMIT 1;";
 		$result = $this->db->db->query($query)->fetch(PDO::FETCH_ASSOC);
+		$count=$this->db->db->query($query)->rowCount();
+		if(!$count) errorXHR('no records!');
 		$_SESSION['auth']=$result['UID'];
 		$_SESSION['email']=$result['email'];
 		$_SESSION['name']=$result['name'];
-		redirect('dashboard');
+		sendXHR('login success');
 	}
 
 	public function signup(){
@@ -99,8 +101,7 @@ class User{
 
 	public function logout(){
 		session_unset();
-		session_decode();
-		redirect();
+		sendXHR('logged out');
 	}
 
 }

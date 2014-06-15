@@ -1,5 +1,5 @@
 <?php
 
-print_r($GLOBALS['item']);
+require_once(VIEWS . DS . 'search.view.php');
 
 ?>

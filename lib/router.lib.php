@@ -26,6 +26,7 @@ function route($user){
 
         case 'dashboard':
             if(!$GLOBALS['user']->isAuth()) redirect();
+            if(!$_SESSION['auth']=='0') redirect();
             $GLOBALS['title']="Dashboard";
             $GLOBALS['yield']=VIEWS . DS . 'dashboard.view.php';
             break;
@@ -35,8 +36,8 @@ function route($user){
             $GLOBALS['yield']=VIEWS . DS . 'home.view.php';
             break;
         case 'search':
-            $GLOBALS['title']="Search";
-            $GLOBALS['yield']=VIEWS . DS . 'search.view.php';
+            if(!XHR) redirect();
+            $GLOBALS['item']->search();
             break;
         case 'offer':
             $GLOBALS['title']="Create offer";
@@ -61,8 +62,7 @@ function route($user){
             $GLOBALS['yield']=VIEWS . DS . 'user' . DS . 'signup.php';
             break;
         case 'admin':
-            if($GLOBALS['user']->isAuth()) redirect();
-            $GLOBALS['file']=VIEWS . DS . 'admin.view.php';
+                redirect('login');
             break;
         case 'user':
             if(!$GLOBALS['user']->isAuth()) redirect();
@@ -79,6 +79,11 @@ function route($user){
             $GLOBALS['item']->showAll($_SESSION['auth']);
             break;
 
+        case 'contact':
+            if(!$GLOBALS['user']->isAuth() || !$_SESSION['auth']==0) redirect();
+            $GLOBALS['title']="View contact";
+            $GLOBALS['yield']=VIEWS . DS . 'contact.view.php';
+            break;
 
         case 'message':
             if(!$GLOBALS['user']->isAuth()) errorXHR('Please login again!');

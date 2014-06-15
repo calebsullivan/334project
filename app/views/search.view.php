@@ -1,2 +1,7 @@
-<!-- $query = 'SELECT * FROM items WHERE term LIKE ' . $term . 'OR term LIKE' . $search;
- -->
+<?php
+foreach ($GLOBALS['item'] as $items){
+echo '<br>';
+foreach ($items as $item){
+	print_r($item);	}
+}
+?>

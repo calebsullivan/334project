@@ -36,13 +36,15 @@ function redirect($location=null, $feedback=null){
 }
 
 function errorXHR($content){
+	header('Content-Type: application/json');
 	echo json_encode(array('error' => $content));
-	exit;
+	exit(1);
 }
 
 function sendXHR($content){
+	header('Content-type: application/json');
 	echo json_encode(array('data' => $content));
-	exit;
+	exit(0);
 }
 
 //render content, insert variables
@@ -79,6 +81,8 @@ function path($view){
 	switch($view){
 		case 'Dashboard':
 		return 'dashboard';
+		case 'View contact':
+		return 'contact';
 		case 'Messages':
 		return 'messages';
 		case 'Create offer':
@@ -98,5 +102,12 @@ function path($view){
 
 function post(){ return $_SERVER['REQUEST_METHOD'] == 'POST'; }
 function get(){ return $_SERVER['REQUEST_METHOD'] == 'GET'; }
+
+function activity(){
+	$db=Database::getInstance();
+	$db->beginTransaction();
+	$db->exec("INSERT INTO 'activity' (time, IID, UID, data, title, images, token) VALUES('$time', '$IID', '$UID', '$data', '$title', '$images', '$token');");
+	$db->commit();
+}
 
 ?>
