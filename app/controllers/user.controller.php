@@ -19,7 +19,6 @@ class User{
 	}
 
 	function createUser($user, $email, $plaintext_password, $name){
-		//TABLE user (time REAL, UID TEXT, user TEXT, email TEXT, pass TEXT, name TEXT, image TEXT, data TEXT, token TEXT, loc TEXT)
 		$time=time();
 		$UID=$this->generateUID();
 		$pass=$this->saltPassword($plaintext_password);
@@ -82,7 +81,7 @@ class User{
 			$_SESSION['name']=$result['name'];
 			sendXHR('success');
 		} else {
-			errorXHR($this->saltPassword('admin') . 'fail');
+			errorXHR('fail');
 		}
 	}
 	

@@ -65,7 +65,7 @@ $(document).ready(function() {
 					.html('<i class="fa fa-check-square-o"></i>&nbsp; Logging in...')
 					.slideDown().removeClass('fail').addClass('success');
 
-					// setTimeout(function(){window.location='/';}, 2000)
+					setTimeout(function(){window.location='/';}, 2000)
 				});
 			}
 		}).fail(function(data){
@@ -85,17 +85,43 @@ $(document).ready(function() {
 
 	}
 
-	// $('#signup-form').submit(function(e){
-	// 	e.preventDefault();
-	//     var form = $(this);
+	$('#signup-form').submit(function(e){
+		e.preventDefault();
+	    var form = $(this);
 
-	// 	if($('#email').val()=='' 
-	// 		|| $('#password').val()=='' 
-	// 		|| $('#name').val()=='' 
-	// 		|| $('#username').val()==''
-	// 		|| !username_good()
-	// 		|| !email_good()){} else {console.log('error');}
-	// });
+		// if($('#email').val()=='' 
+		// 	|| $('#password').val()=='' 
+		// 	|| $('#name').val()=='' 
+		// 	|| $('#username').val()==''
+		// 	|| !username_good()
+		// 	|| !email_good()){} else {console.log('error');}
+
+		$.ajax({
+			type:form.attr('method'),
+			url:form.attr('action'),
+			data:form.serialize()
+		}).success(function(data){
+			console.log(data);
+			if(data['error']){
+				$('.content-subhead').slideUp(function(){
+					$('.content-subhead')
+					.html('<i class="fa fa-exclamation-triangle"></i>&nbsp; Problems!')
+					.slideDown().removeClass('success').addClass('fail');
+				});
+			}else{form.slideUp();
+				$('.content-subhead').slideUp(function(){
+					$('.content-subhead')
+					.html('<i class="fa fa-check-square-o"></i>&nbsp; Creating account and logging in...')
+					.slideDown().removeClass('fail').addClass('success');
+
+					// setTimeout(function(){window.location='/';}, 2000)
+				});
+			}
+		}).fail(function(data){
+			alert('It\'s a rocky road to ajax:success. Check your network connection.');
+		});
+
+	});
 
 	$('.deleteItem').on('click', function(e){
 		e.preventDefault();

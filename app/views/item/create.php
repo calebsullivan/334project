@@ -11,7 +11,7 @@
 
         <div class="pure-control-group">
             <label for="data">Description </label>
-            <div class="editable" data-mediumfor="data">Palceholder</div>
+            <div class="editable" data-mediumfor="data"></div>
             <textarea id="data" type="text" name="data" class="hidden-editable" data-mediumfor="data"></textarea>
         </div>
 

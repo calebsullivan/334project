@@ -79,9 +79,9 @@ class Item{
 		if($term=='') errorXHR('empty');
 		$count=$this->db->db->query("SELECT * FROM items WHERE title LIKE '% $term %' OR title like '$term %' OR title like '% $term' OR title like '$term' OR title='$term' OR description LIKE '% $term %' OR description like '$term %' OR description like '% $term' OR description like '$term' OR description='$term';")->rowCount();
 
-		if($count<0) errorXHR('nothing found');
 
 	    $GLOBALS['item']=$this->db->db->query("SELECT * FROM items WHERE title LIKE '%$term%' or description LIKE '%$term%';")->fetchAll(PDO::FETCH_ASSOC);
+		if(count($GLOBALS['item']) == 0) errorXHR('nothing found');
 	    $GLOBALS['file']=VIEWS . DS . 'search.view.php';	
 	}
 }
