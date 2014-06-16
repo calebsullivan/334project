@@ -8,9 +8,9 @@ class User{
 		if($GLOBALS['rebuild']) { $this->seed(); }
 	}
 
-	public function db(){
-		return $this->db;
-	}
+	// public function db(){
+	// 	return $this->db;
+	// }
 
 	// makes fake data
 	function seed(){
@@ -70,19 +70,19 @@ class User{
 	}
 
 	public function login(){
-		$username=sanitize($_POST['username']);
-		if(isset($_POST['email'])) $email=sanitize($_POST['email']); else $email='';
+		if(!isset($_POST['username'])) errorXHR('nogo'); 
+		$name=sanitize($_POST['username']);
 		$password=$this->saltPassword($_POST['password']);
-		$query = "SELECT UID, email, name FROM users WHERE (email = '$email' or user = '$username') AND pass = '$password' LIMIT 1;";
+		$query = "SELECT UID, email, name, password FROM users WHERE email = '" . $name . "' OR user = '" . $name . "';";
 		$result = $this->db->db->query($query)->fetch(PDO::FETCH_ASSOC);
-		$count=$this->db->db->query($query)->rowCount();
-
-		if($count <0) errorXHR($count . print_r($result));
-
+		if($result[0]['password'] != $password) 
+			errorXHR($result . 'bad user or pass');
+	
 		$_SESSION['auth']=$result['UID'];
 		$_SESSION['email']=$result['email'];
 		$_SESSION['name']=$result['name'];
-		sendXHR('login success');
+	
+		errorXHR('logging in'. print_r($result));
 	}
 
 	public function signup(){

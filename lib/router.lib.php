@@ -76,7 +76,7 @@ function route($user){
             break;
         case 'delete-item':
             if(!XHR) redirect();
-            if(post() && isset($_POST['iid']) && is_array($_POST['iid'])) $GLOBALS['item']->delete(sanitize($_POST['iid']));
+            if(post() && isset($_POST['item'])) $GLOBALS['item']->delete(sanitize($_POST['item']));
             else errorXHR('bad');
             break;
 

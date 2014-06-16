@@ -64,7 +64,7 @@ $(document).ready(function() {
 					.html('<i class="fa fa-check-square-o"></i>&nbsp; Logging in...')
 					.slideDown().removeClass('fail').addClass('success');
 
-					setTimeout(function(){window.location='/';}, 2000)
+					// setTimeout(function(){window.location='/';}, 2000)
 				});
 			}
 		}).fail(function(data){
@@ -98,18 +98,20 @@ $(document).ready(function() {
 
 	$('.deleteItem').on('click', function(e){
 		e.preventDefault();
-		console.log($.ajax({
+		var iid = $(this).attr('data-itemid');
+		var temp_this = this;
+		$.ajax({
 			type:"POST",
 			url:'/delete-item/',
-			data:{'iid': $(this).data('IID')}
+			data:{'item': iid}
 		}).success(function(data){
 			if(data['error'])
 				alert('It\'s a rocky road to ajax:success. Check your network connection.');
 			else
-				$(this).parents('.item-list').get(0).slideUp();
+				$($(temp_this).parent('.item-list')[0]).slideUp();
 		}).fail(function(data){
 			alert('It\'s a rocky road to ajax:success. Check your network connection.');
-		}));
+		});
 	});
 
 	function search(){

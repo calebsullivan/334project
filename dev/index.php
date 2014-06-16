@@ -64,6 +64,13 @@
         <div class="header"><h1>Info</h1></div>
 
         <div class="content">
+
+            <h2 class="content-subhead">$_SESSION['auth']</h2>
+            <pre><?php echo $_SESSION['auth'];?></pre>
+
+            <h2 class="content-subhead">$_SESSION['name']</h2>
+            <pre><?php echo $_SESSION['name'];?></pre>
+
             <h2 class="content-subhead">REQUEST_URI</h2>
             <pre><?php echo $_SERVER['REQUEST_URI'];?></pre>
 

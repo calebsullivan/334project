@@ -67,13 +67,16 @@ class Item{
 
 	function delete($IID){
 		$this->db->db->beginTransaction();
-		$this->db->db->exec("DELETE FROM items WHERE IID = '$IID' AND UID = '" . $_SESSION['auth'] . "';");
+			//AND UID = '" . $_SESSION['auth'] . "'
+		echo "DELETE FROM items WHERE IID = $IID;";
+		$this->db->db->exec("DELETE FROM items WHERE IID = $IID;");
 		$this->db->db->commit();
 		sendXHR('y');
 	}
 
 	function search(){
 		$term=sanitize($_GET['term']);
+		if($term=='') errorXHR('empty');
 		// $count=$this->db->db->query("SELECT * FROM items JOIN users WHERE items.UID = users.UID AND title LIKE '%$term%' or description LIKE '%$term%';")->rowCount();
 		$count=$this->db->db->query("SELECT * FROM items WHERE title LIKE '% $term %' OR title like '$term %' OR title like '% $term' OR title like '$term' OR title='$term' OR description LIKE '% $term %' OR description like '$term %' OR description like '% $term' OR description like '$term' OR description='$term';")->rowCount();
 
