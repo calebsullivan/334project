@@ -87,7 +87,7 @@ function route($user){
 
         case 'about':
             $GLOBALS['title']="About Us";
-            $GLOBALS['yield']=VIEWS . DS . 'about' . DS . 'about.php';
+            $GLOBALS['yield']=VIEWS . DS . 'about' . DS . 'aboutuspage.php';
             break;
 
         case 'contact':
