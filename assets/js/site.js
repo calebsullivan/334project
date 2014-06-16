@@ -52,6 +52,7 @@ $(document).ready(function() {
 			url:form.attr('action'),
 			data:form.serialize()
 		}).success(function(data){
+			console.log(data);
 			if(data['error']){
 				$('.content-subhead').slideUp(function(){
 					$('.content-subhead')
@@ -84,17 +85,17 @@ $(document).ready(function() {
 
 	}
 
-	$('#signup-form').submit(function(e){
-		e.preventDefault();
-	    var form = $(this);
+	// $('#signup-form').submit(function(e){
+	// 	e.preventDefault();
+	//     var form = $(this);
 
-		if($('#email').val()=='' 
-			|| $('#password').val()=='' 
-			|| $('#name').val()=='' 
-			|| $('#username').val()==''
-			|| !username_good()
-			|| !email_good()){} else {console.log('error');}
-	});
+	// 	if($('#email').val()=='' 
+	// 		|| $('#password').val()=='' 
+	// 		|| $('#name').val()=='' 
+	// 		|| $('#username').val()==''
+	// 		|| !username_good()
+	// 		|| !email_good()){} else {console.log('error');}
+	// });
 
 	$('.deleteItem').on('click', function(e){
 		e.preventDefault();

@@ -8,9 +8,9 @@ class User{
 		if($GLOBALS['rebuild']) { $this->seed(); }
 	}
 
-	// public function db(){
-	// 	return $this->db;
-	// }
+	public function db(){
+		return $this->db;
+	}
 
 	// makes fake data
 	function seed(){
@@ -70,21 +70,22 @@ class User{
 	}
 
 	public function login(){
-		if(!isset($_POST['username'])) errorXHR('nogo'); 
-		$name=sanitize($_POST['username']);
+		$username=sanitize($_POST['username']);
+		
 		$password=$this->saltPassword($_POST['password']);
-		$query = "SELECT UID, email, name, password FROM users WHERE email = '" . $name . "' OR user = '" . $name . "';";
-		$result = $this->db->db->query($query)->fetch(PDO::FETCH_ASSOC);
-		if($result[0]['password'] != $password) 
-			errorXHR($result . 'bad user or pass');
-	
-		$_SESSION['auth']=$result['UID'];
-		$_SESSION['email']=$result['email'];
-		$_SESSION['name']=$result['name'];
-	
-		errorXHR('logging in'. print_r($result));
-	}
 
+		$query = "SELECT UID, name, pass FROM users WHERE email = '".$username."' or user = '".$username."';";
+		$result = $this->db()->db->query($query)->fetch(PDO::FETCH_ASSOC);
+
+		if($result['pass'] == $password){
+			$_SESSION['auth']=$result['UID'];
+			$_SESSION['name']=$result['name'];
+			sendXHR('success');
+		} else {
+			errorXHR($this->saltPassword('admin') . 'fail');
+		}
+	}
+	
 	public function signup(){
 		
 		//validate presence of required data
@@ -95,7 +96,7 @@ class User{
 			) errorXHR('Fill required fields');
 
 		//create user, password does not need to be validated
-			//because password is salted
+		//because password is salted
 		$this->createUser(sanitize($_POST['username'])
 			, sanitize($_POST['email'])
 			, $_POST['password']

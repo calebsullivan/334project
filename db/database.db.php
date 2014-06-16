@@ -25,7 +25,7 @@ class Database{
 		$this->db->exec("CREATE TABLE messages (time REAL, IID TEXT, toUID TEXT, fromUID TEXT, read TEXT, data TEXT, token TEXT, loc TEXT);");
 		$this->db->exec("CREATE TABLE contact (time REAL, ID TEXT, time_date TEXT, IP TEXT, UID TEXT, UA TEXT, data TEXT, token TEXT, loc TEXT);");
 
-		$this->db->exec("INSERT INTO 'users' (time, UID, user, email, pass, name) VALUES('".time()."', '0', 'admin', 'admin@offr.example', 'admin', 'Administrator');");
+		$this->db->exec("INSERT INTO 'users' (time, UID, user, email, pass, name) VALUES('".time()."', '0', 'admin', 'admin@offr.example', 'cbce842347134649246fe232bfb9d85423d79aea', 'Administrator');");
 		$this->db->commit();
 
 	}

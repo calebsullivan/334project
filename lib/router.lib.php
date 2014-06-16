@@ -85,9 +85,13 @@ function route($user){
             $GLOBALS['item']->showAll($_SESSION['auth']);
             break;
 
+        case 'about':
+            $GLOBALS['title']="About Us";
+            $GLOBALS['yield']=VIEWS . DS . 'about' . DS . 'about.php';
+            break;
+
         case 'contact':
-            if(!$GLOBALS['user']->isAuth() || !$_SESSION['auth']==0) redirect();
-            $GLOBALS['title']="View contact";
+            $GLOBALS['title']="Contact Us";
             $GLOBALS['yield']=VIEWS . DS . 'contact.view.php';
             break;
 

@@ -12,8 +12,13 @@
 	<link rel="stylesheet" type="text/css" href="/assets/css/side-menu.css"/>
 	<link rel="stylesheet" type="text/css" href="/assets/css/site.css"/>
 </head>
-<body>
+<body>	
+	<div class="link-bar">
+		<a href="about" class="first">About Us</a>
+		<a href="contact">Contact Us</a>
+	</div>
 <div id="layout">
+
 <?php 
     if($GLOBALS['user']->isAuth())
     	echo'<a class=" pure-button button-error " id="logout" href="/logout/">Logout</a>';
